@@ -1,1 +1,13 @@
-d
+CREATE TABLE IF NOT EXISTS notas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    curso VARCHAR(50) NOT NULL,
+    nota1 DECIMAL(5, 2) NOT NULL,
+    nota2 DECIMAL(5, 2) NOT NULL,
+    promedio DECIMAL(5, 2) GENERATED ALWAYS AS ((nota1 + nota2) / 2) STORED,
+    condicion VARCHAR(20) GENERATED ALWAYS AS (CASE 
+                                                  WHEN ((nota1 + nota2) / 2) >= 10 THEN 'Aprobado' 
+                                                  ELSE 'Desaprobado' 
+                                               END) STORED,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
